@@ -20,13 +20,15 @@ i2c = busio.I2C(3, 2)  # (SCL, SDA)
 
 # Create the OLED display
 oled = SSD1306_I2C(128, 64, i2c)
-oled.contrast(30)
+oled.contrast(5)
 
 # Record the start time
 start_time = time.time()
 
 # Loop to keep updating the display
 while True:
+    
+    
     # Clear the display
     oled.fill(0)
     
