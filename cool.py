@@ -10,18 +10,18 @@ i2c = busio.I2C(3, 2)  # (SCL, SDA)
 oled = SSD1306_I2C(128, 64, i2c)
 oled.contrast(5)
 
-def bounce_smiley():
-    x, y = 0, 0
+def bounce_animation():
+    x, y = 10, 10
     dx, dy = 2, 1  # Movement direction
 
     while True:
         oled.fill(0)  # Clear the display
         
-        # Draw a simple smiley face
-        oled.circle(x + 10, y + 10, 10, 1)  # Head
-        oled.fill_circle(x + 7, y + 7, 2, 1)  # Left eye
-        oled.fill_circle(x + 13, y + 7, 2, 1)  # Right eye
-        oled.fill_rect(x + 7, y + 12, 6, 1, 1)  # Mouth
+        # Draw a bouncing smiley face using rectangles and lines
+        oled.circle(x, y, 10, 1)  # Head
+        oled.fill_circle(x - 3, y - 3, 2, 1)  # Left eye
+        oled.fill_circle(x + 3, y - 3, 2, 1)  # Right eye
+        oled.line(x - 5, y + 2, x + 5, y + 2, 1)  # Mouth
 
         # Update the OLED display
         oled.show()
@@ -31,12 +31,12 @@ def bounce_smiley():
         y += dy
 
         # Bounce off walls
-        if x <= 0 or x >= 118:
+        if x <= 10 or x >= 118:
             dx *= -1
-        if y <= 0 or y >= 54:
+        if y <= 10 or y >= 54:
             dy *= -1
         
         time.sleep(0.05)  # Animation speed
 
 # Start the animation
-bounce_smiley()
+bounce_animation()
