@@ -146,7 +146,7 @@ oled = SSD1306_I2C(128, 64, i2c)
 oled.contrast(5)
 
 # New variable to control the size of the smiley
-size = 10  # Change this variable to control the size of the smiley
+size = 20  # Change this variable to control the size of the smiley
 
 def bounce_animation(size):
     x, y = size, size
