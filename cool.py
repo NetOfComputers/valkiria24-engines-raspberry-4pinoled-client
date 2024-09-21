@@ -17,10 +17,10 @@ def bounce_animation():
     while True:
         oled.fill(0)  # Clear the display
         
-        # Draw a bouncing smiley face using rectangles and lines
+        # Draw a bouncing smiley face using basic shapes
         oled.circle(x, y, 10, 1)  # Head
-        oled.fill_circle(x - 3, y - 3, 2, 1)  # Left eye
-        oled.fill_circle(x + 3, y - 3, 2, 1)  # Right eye
+        oled.rect(x - 3, y - 3, 2, 2, 1)  # Left eye
+        oled.rect(x + 1, y - 3, 2, 2, 1)  # Right eye
         oled.line(x - 5, y + 2, x + 5, y + 2, 1)  # Mouth
 
         # Update the OLED display
