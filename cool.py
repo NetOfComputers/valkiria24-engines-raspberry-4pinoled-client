@@ -91,6 +91,48 @@
 
 
 
+# import time
+# import busio
+# from adafruit_ssd1306 import SSD1306_I2C
+# import board
+
+# # Create the I2C interface
+# i2c = busio.I2C(3, 2)  # (SCL, SDA)
+
+# # Create the OLED display
+# oled = SSD1306_I2C(128, 64, i2c)
+# oled.contrast(5)
+
+# def bounce_animation():
+#     x, y = 10, 10
+#     dx, dy = 2, 1  # Movement direction
+
+#     while True:
+#         oled.fill(0)  # Clear the display
+        
+#         # Draw a bouncing smiley face using basic shapes
+#         oled.circle(x, y, 10, 1)  # Head
+#         oled.rect(x - 3, y - 3, 2, 2, 1)  # Left eye
+#         oled.rect(x + 1, y - 3, 2, 2, 1)  # Right eye
+#         oled.line(x - 5, y + 2, x + 5, y + 2, 1)  # Mouth
+
+#         # Update the OLED display
+#         oled.show()
+        
+#         # Move the smiley
+#         x += dx
+#         y += dy
+
+#         # Bounce off walls
+#         if x <= 10 or x >= 118:
+#             dx *= -1
+#         if y <= 10 or y >= 54:
+#             dy *= -1
+        
+#         time.sleep(0.05)  # Animation speed
+
+# # Start the animation
+# bounce_animation()
 import time
 import busio
 from adafruit_ssd1306 import SSD1306_I2C
@@ -103,18 +145,21 @@ i2c = busio.I2C(3, 2)  # (SCL, SDA)
 oled = SSD1306_I2C(128, 64, i2c)
 oled.contrast(5)
 
-def bounce_animation():
-    x, y = 10, 10
+# New variable to control the size of the smiley
+size = 10  # Change this variable to control the size of the smiley
+
+def bounce_animation(size):
+    x, y = size, size
     dx, dy = 2, 1  # Movement direction
 
     while True:
         oled.fill(0)  # Clear the display
         
         # Draw a bouncing smiley face using basic shapes
-        oled.circle(x, y, 10, 1)  # Head
-        oled.rect(x - 3, y - 3, 2, 2, 1)  # Left eye
-        oled.rect(x + 1, y - 3, 2, 2, 1)  # Right eye
-        oled.line(x - 5, y + 2, x + 5, y + 2, 1)  # Mouth
+        oled.circle(x, y, size, 1)  # Head (size depends on variable)
+        oled.rect(x - size//3, y - size//3, size//5, size//5, 1)  # Left eye
+        oled.rect(x + size//5, y - size//3, size//5, size//5, 1)  # Right eye
+        oled.line(x - size//2, y + size//5, x + size//2, y + size//5, 1)  # Mouth
 
         # Update the OLED display
         oled.show()
@@ -123,13 +168,13 @@ def bounce_animation():
         x += dx
         y += dy
 
-        # Bounce off walls
-        if x <= 10 or x >= 118:
+        # Bounce off walls, taking the size into account
+        if x <= size or x >= (128 - size):
             dx *= -1
-        if y <= 10 or y >= 54:
+        if y <= size or y >= (64 - size):
             dy *= -1
         
         time.sleep(0.05)  # Animation speed
 
-# Start the animation
-bounce_animation()
+# Start the animation with a size variable (e.g., size 15 for bigger smiley)
+bounce_animation(size)
