@@ -44,6 +44,8 @@ while True:
     # Get the current IP address
     ip_address = get_ip_address()
     
+    ip_address = 'No IP'
+    
     if 'No IP' in ip_address:
         oled.fill(0)  # Clear the display
         
