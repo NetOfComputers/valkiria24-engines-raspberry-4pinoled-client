@@ -148,9 +148,9 @@ oled.contrast(5)
 # New variable to control the size of the smiley
 size = 20  # Change this variable to control the size of the smiley
 
-def bounce_animation(size):
+def bounce_animation(size, speed_multiplier=1):
     x, y = size, size
-    dx, dy = 2, 1  # Movement direction
+    dx, dy = 2 * speed_multiplier, 1 * speed_multiplier  # Speed multiplied by a factor
 
     while True:
         oled.fill(0)  # Clear the display
@@ -165,8 +165,8 @@ def bounce_animation(size):
         oled.show()
         
         # Move the smiley
-        x += dx + 10
-        y += dy + 10
+        x += dx
+        y += dy
 
         # Bounce off walls, taking the size into account
         if x <= size or x >= (128 - size):
@@ -176,5 +176,5 @@ def bounce_animation(size):
         
         time.sleep(0.05)  # Animation speed
 
-# Start the animation with a size variable (e.g., size 15 for bigger smiley)
-bounce_animation(size)
+# Start the animation with a size variable and a speed multiplier
+bounce_animation(size, speed_multiplier=5)  # Increasing speed by multiplying direction
