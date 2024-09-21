@@ -170,12 +170,10 @@ def bounce_animation(size, speed_multiplier=1):
 
         # Bounce off walls, taking the size into account
         if x <= size or x >= (128 - size):
-            oled.contrast(30)
             dx *= -1
         if y <= size or y >= (64 - size):
-            oled.contrast(30)
             dy *= -1
-        oled.contrast(5)
+        
         time.sleep(0.05)  # Animation speed
 
 # Start the animation with a size variable and a speed multiplier
