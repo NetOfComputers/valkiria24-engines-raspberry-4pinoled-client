@@ -11,10 +11,11 @@ oled = SSD1306_I2C(128, 64, i2c)
 oled.contrast(5)
 
 def draw_bird(x, y):
-    # Draw a simple bird using triangles and lines
-    oled.fill_triangle(x, y, x + 5, y - 5, x + 10, y, 1)  # Body
-    oled.line(x + 5, y - 5, x + 5, y - 10, 1)  # Wing
-    oled.fill_triangle(x + 5, y, x + 8, y + 3, x + 10, y, 1)  # Tail
+    # Draw a simple bird shape using lines and rectangles
+    oled.fill_rect(x, y, 10, 5, 1)  # Body
+    oled.fill_rect(x + 2, y - 3, 2, 2, 1)  # Eye
+    oled.line(x + 5, y, x + 10, y - 5, 1)  # Wing
+    oled.line(x + 10, y - 5, x + 7, y, 1)  # Tail
 
 def bounce_bird():
     x, y = 10, 20
