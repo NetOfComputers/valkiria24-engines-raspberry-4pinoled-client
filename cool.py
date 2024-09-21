@@ -174,7 +174,7 @@ def bounce_animation(size):
         if y <= size or y >= (64 - size):
             dy *= -1
         
-        time.sleep(0.05)  # Animation speed
+        time.sleep(0.005)  # Animation speed
 
 # Start the animation with a size variable (e.g., size 15 for bigger smiley)
 bounce_animation(size)
