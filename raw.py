@@ -76,7 +76,7 @@ def draw_frame(frame_data):
 
 def play_animation(frames, delay=0.1):
     for frame in frames:
-        draw_frame_correctly(frame)
+        draw_frame(frame)
         time.sleep(delay)  # Controla la velocidad de la animación
 
 # Iniciar la animación
