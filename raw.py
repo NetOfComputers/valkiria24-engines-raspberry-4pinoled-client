@@ -48,10 +48,10 @@ def draw_frame_expanded(frame_data):
             # Duplicar cada píxel verticalmente para expandir a una pantalla de 64 píxeles de alto
             if byte_value & (1 << (7 - bit)):
                 oled.pixel(x, y, 1)  # Píxel en la posición original
-                oled.pixel(x, y + 8, 1)  # Píxel duplicado debajo para llenar la pantalla
+                oled.pixel(x, y + 32, 1)  # Píxel duplicado debajo para llenar la pantalla
             else:
                 oled.pixel(x, y, 0)
-                oled.pixel(x, y + 8, 0)
+                oled.pixel(x, y + 32, 0)
     
     oled.show()  # Actualiza la pantalla
 
@@ -76,7 +76,7 @@ def draw_frame(frame_data):
 
 def play_animation(frames, delay=0.1):
     for frame in frames:
-        draw_frame_expanded(frame)
+        draw_frame(frame)
         time.sleep(delay)  # Controla la velocidad de la animación
 
 # Iniciar la animación
