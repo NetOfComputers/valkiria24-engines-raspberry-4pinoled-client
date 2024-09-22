@@ -1,4 +1,3 @@
-
 import time
 import busio
 from adafruit_ssd1306 import SSD1306_I2C
@@ -17,10 +16,12 @@ size = 20  # Change this variable to control the size of the smiley
 def bounce_animation(size, speed_multiplier=1):
     x, y = size, size
     dx, dy = 2 * speed_multiplier, 1 * speed_multiplier  # Speed multiplied by a factor
+    contrast = 5  # Starting contrast
+    increasing = True  # Control for increasing contrast
 
     while True:
         oled.fill(0)  # Clear the display
-        
+
         # Draw a bouncing smiley face using basic shapes
         oled.circle(x, y, size, 1)  # Head (size depends on variable)
         oled.rect(x - size//3, y - size//3, size//5, size//5, 1)  # Left eye
@@ -34,13 +35,29 @@ def bounce_animation(size, speed_multiplier=1):
         x += dx
         y += dy
 
+        # Update contrast based on the direction of movement
+        if increasing:
+            contrast += 1  # Increase contrast
+            if contrast >= 255:  # Max contrast limit
+                contrast = 255
+                increasing = False
+        else:
+            contrast -= 1  # Decrease contrast
+            if contrast <= 5:  # Min contrast limit
+                contrast = 5
+                increasing = True
+
+        oled.contrast(contrast)  # Set the new contrast
+
         # Bounce off walls, taking the size into account
         if x <= size or x >= (128 - size):
             dx *= -1
+            contrast = 5  # Reset contrast on bounce
         if y <= size or y >= (64 - size):
             dy *= -1
-        
-        # time.sleep(0.001)  # Animation speed
+            contrast = 5  # Reset contrast on bounce
+
+        time.sleep(0.01)  # Adjust the animation speed
 
 # Start the animation with a size variable and a speed multiplier
 bounce_animation(size, speed_multiplier=2)  # Increasing speed by multiplying direction
