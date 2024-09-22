@@ -59,4 +59,4 @@ def bounce_animation(size, speed_multiplier=1):
         # time.sleep(0.01)  # Animation speed
 
 # Start the animation with a size variable and a speed multiplier
-bounce_animation(size, speed_multiplier=7)  # Increasing speed by multiplying direction
+bounce_animation(size, speed_multiplier=4)  # Increasing speed by multiplying direction
