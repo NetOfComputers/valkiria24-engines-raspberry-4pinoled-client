@@ -20,6 +20,7 @@ maxBounceTimes = 20
 bounced = False
 bounceContrastTimes = maxBounceTimes
 def bounce_animation(size, speed_multiplier=1):
+    global bounced, bounceContrastTimes
     x, y = size, size
     dx, dy = 2 * speed_multiplier, 1 * speed_multiplier  # Speed multiplied by a factor
 
@@ -48,7 +49,7 @@ def bounce_animation(size, speed_multiplier=1):
             bounced = True
             oled.contrast(MAX_CONTRAST)
             dy *= -1
-        if(bounced):
+        if bounced:
             if bounceContrastTimes>0:
                 bounceContrastTimes -= 1
             else:
