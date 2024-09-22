@@ -16,7 +16,7 @@ oled.contrast(CONTRAST)
 
 # New variable to control the size of the smiley
 size = 20  # Change this variable to control the size of the smiley
-maxBounceTimes = 20
+maxBounceTimes = 5
 bounced = False
 bounceContrastTimes = maxBounceTimes
 def bounce_animation(size, speed_multiplier=1):
