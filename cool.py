@@ -16,8 +16,9 @@ size = 20  # Change this variable to control the size of the smiley
 def bounce_animation(size, speed_multiplier=1):
     x, y = size, size
     dx, dy = 2 * speed_multiplier, 1 * speed_multiplier  # Speed multiplied by a factor
-    contrast = 5  # Starting contrast
-    increasing = True  # Control for increasing contrast
+    original_contrast = 5  # Original contrast
+    bounce_contrast = 200  # Higher contrast on bounce
+    bounce_duration = 0.1  # Duration for the bounce contrast effect
 
     while True:
         oled.fill(0)  # Clear the display
@@ -35,27 +36,18 @@ def bounce_animation(size, speed_multiplier=1):
         x += dx
         y += dy
 
-        # Update contrast based on the direction of movement
-        if increasing:
-            contrast += 20  # Increase contrast
-            if contrast >= 255:  # Max contrast limit
-                contrast = 255
-                increasing = False
-        else:
-            contrast -= 1  # Decrease contrast
-            if contrast <= 5:  # Min contrast limit
-                contrast = 5
-                increasing = True
-
-        oled.contrast(contrast)  # Set the new contrast
-
         # Bounce off walls, taking the size into account
         if x <= size or x >= (128 - size):
             dx *= -1
-            contrast = 5  # Reset contrast on bounce
+            oled.contrast(bounce_contrast)  # Set higher contrast on bounce
+            time.sleep(bounce_duration)  # Pause briefly
+            oled.contrast(original_contrast)  # Return to original contrast
+            
         if y <= size or y >= (64 - size):
             dy *= -1
-            contrast = 5  # Reset contrast on bounce
+            oled.contrast(bounce_contrast)  # Set higher contrast on bounce
+            time.sleep(bounce_duration)  # Pause briefly
+            oled.contrast(original_contrast)  # Return to original contrast
 
         time.sleep(0.01)  # Adjust the animation speed
 
