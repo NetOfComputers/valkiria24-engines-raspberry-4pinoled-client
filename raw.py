@@ -2,8 +2,8 @@ import time
 import busio
 from adafruit_ssd1306 import SSD1306_I2C
 import board
-import bird_animation
-
+# import bird_animation
+import rocket_animation
 
 
 
@@ -86,4 +86,4 @@ def play_animation(frames, delay=0.1):
     # time.sleep(3)
 
 # Iniciar la animación
-play_animation(bird_animation.frames)
+play_animation(rocket_animation.frames)
