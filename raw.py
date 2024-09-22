@@ -18,12 +18,6 @@ oled = SSD1306_I2C(128, 64, i2c)
 oled.contrast(CONTRAST)
 
 
-frames = [
-    [0,0,0,255,0,0,...],  # Frame 1
-    [0,0,0,127,0,0,...],  # Frame 2
-    # Agrega más frames aquí
-]
-
 
 def draw_frame(frame_data):
     oled.fill(0)  # Limpia la pantalla
