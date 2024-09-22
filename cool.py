@@ -40,7 +40,7 @@ def bounce_animation(size, speed_multiplier=1):
         if y <= size or y >= (64 - size):
             dy *= -1
         
-        time.sleep(0.05)  # Animation speed
+        time.sleep(0.001)  # Animation speed
 
 # Start the animation with a size variable and a speed multiplier
 bounce_animation(size, speed_multiplier=2)  # Increasing speed by multiplying direction
