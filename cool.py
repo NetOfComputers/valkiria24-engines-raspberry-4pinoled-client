@@ -1,180 +1,109 @@
-# import time
-# import busio
-# from adafruit_ssd1306 import SSD1306_I2C
-# import board
+# Display Image & text on I2C driven ssd1306 OLED display 
+from machine import Pin, I2C
+from ssd1306 import SSD1306_I2C
+import framebuf
+from time import sleep
 
-# # Create the I2C interface
-# i2c = busio.I2C(3, 2)  # (SCL, SDA)
+WIDTH  = 128                                            # oled display width
+HEIGHT = 64                                             # oled display height
 
-# # Create the OLED display
-# oled = SSD1306_I2C(128, 64, i2c)
-# oled.contrast(5)
-
-# def draw_smiley(x, y):
-#     # Draw a big smiley face
-#     oled.circle(x, y, 15, 1)  # Face
-#     oled.fill_rect(x - 5, y - 5, 5, 5, 1)  # Left eye
-#     oled.fill_rect(x + 5, y - 5, 5, 5, 1)  # Right eye
-#     oled.arc(x, y + 5, 10, 180, 360, 1)  # Smile
-
-# def display_smiley():
-#     x, y = 64, 32  # Centered position on the screen
-
-#     oled.fill(0)  # Clear the display
-#     draw_smiley(x, y)  # Draw the big smiley face
-#     oled.show()  # Update the display
-
-# # Display the smiley face
-# display_smiley()
+i2c = I2C(0, scl=Pin(9), sda=Pin(8), freq=200000)       # Init I2C using pins GP8 & GP9 (default I2C0 pins)
+print("I2C Address      : "+hex(i2c.scan()[0]).upper()) # Display device address
+print("I2C Configuration: "+str(i2c))                   # Display I2C config
 
 
-# import time
-# import busio
-# from adafruit_ssd1306 import SSD1306_I2C
-# import board
+oled = SSD1306_I2C(WIDTH, HEIGHT, i2c)                  # Init oled display
 
-# # Create the I2C interface
-# i2c = busio.I2C(3, 2)  # (SCL, SDA)
+# Raspberry Pi logo as 32x32 bytearray
+buffer = bytearray(b"\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00|?\x00\x01\x86@\x80\x01\x01\x80\x80\x01\x11\x88\x80\x01\x05\xa0\x80\x00\x83\xc1\x00\x00C\xe3\x00\x00~\xfc\x00\x00L'\x00\x00\x9c\x11\x00\x00\xbf\xfd\x00\x00\xe1\x87\x00\x01\xc1\x83\x80\x02A\x82@\x02A\x82@\x02\xc1\xc2@\x02\xf6>\xc0\x01\xfc=\x80\x01\x18\x18\x80\x01\x88\x10\x80\x00\x8c!\x00\x00\x87\xf1\x00\x00\x7f\xf6\x00\x008\x1c\x00\x00\x0c \x00\x00\x03\xc0\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00")
 
-# # Create the OLED display
-# oled = SSD1306_I2C(128, 64, i2c)
-# oled.contrast(5)
+# Load the raspberry pi logo into the framebuffer (the image is 32x32)
+fb = framebuf.FrameBuffer(buffer, 32, 32, framebuf.MONO_HLSB)
 
-# def draw_bird(x, y):
-#     # Body (oval-shaped by using multiple overlapping rectangles)
-#     oled.fill_rect(x, y, 12, 5, 1)  # Main body
-#     oled.fill_rect(x + 1, y - 1, 10, 5, 1)  # Upper part of the body
-#     oled.fill_rect(x + 2, y - 2, 8, 5, 1)  # Uppermost part of the body
-    
-#     # Eye (slightly larger for more detail)
-#     oled.fill_rect(x + 3, y - 3, 3, 3, 1)  # Eye
-    
-#     # Beak (small triangle using lines)
-#     oled.line(x + 1, y + 1, x - 2, y, 1)  # Beak top line
-#     oled.line(x - 2, y, x + 1, y + 3, 1)  # Beak bottom line
-    
-#     # Wing (curved lines to show feathers)
-#     oled.line(x + 6, y + 1, x + 11, y - 3, 1)  # Top of the wing
-#     oled.line(x + 11, y - 3, x + 8, y + 2, 1)  # Bottom of the wing
-    
-#     # Tail (more angled, defined lines)
-#     oled.line(x + 12, y - 2, x + 14, y - 5, 1)  # Top tail feather
-#     oled.line(x + 12, y, x + 15, y + 2, 1)  # Bottom tail feather
-#     oled.line(x + 14, y - 5, x + 15, y + 2, 1)  # Tail connecting line
+def sq(x, y):
+    oled.rect(32+7*x,7*y,8,8,1)
 
-# def bounce_bird():
-#     x, y = 10, 20
-#     dx, dy = 2, 1  # Movement direction
+def pc(x, y, a=0):
+    oled.fill_rect(32+7*x+3-a,7*y+3-a,2+2*a,2+2*a,1)
 
-#     while True:
-#         oled.fill(0)  # Clear the display
-        
-#         draw_bird(x, y)  # Draw the bird
+def draw(b, o=-1):
+    p2=1
 
-#         # Update the OLED display
-#         oled.show()
-        
-#         # Move the bird
-#         x += dx
-#         y += dy
+    oled.fill(0)
+    oled.blit(fb, 96, 0)
+    oled.blit(fb, 0, 32)
 
-#         # Bounce off walls
-#         if x >= 118 or x <= 0:
-#             dx *= -1
-#         if y >= 54 or y <= 0:
-#             dy *= -1
-        
-#         time.sleep(0.05)  # Animation speed
+    for y in range(3):
+        for x in range(3):
+           sq(3+x,y)
+           if (b & p2):
+               pc(3+x,y, int((b^o)&p2!=0))
+           p2<<=1
 
-# # Start the animation
-# bounce_bird()
+    for y in range(3):
+        for x in range(8):
+           sq(1+x,3+y)
+           if (b & p2):
+               pc(1+x,3+y, int((b^o)&p2!=0))
+           p2<<=1
+
+    for y in range(2):
+        for x in range(3):
+           sq(3+x,6+y)
+           if (b & p2):
+               pc(3+x,6+y, int((b^o)&p2!=0))
+           p2<<=1
+
+    oled.show()
 
 
+B=[0x7fffefffff,
+0x7fffffef7f,
+0x7fffffefed,
+0x7ffffff3ed,
+0x7ffffffba5,
+0x7ffffffa65,
+0x7ffffffb41,
+0x7ffffff309,
+0x7ffffff340,
+0x7fffffd260,
+0x7fffff3260,
+0x7fffff0a60,
+0x7ffbfb0e60,
+0x7ffbfb1260,
+0x7ffbeb02e0,
+0x7ffbeb0320,
+0x7ffbeb2200,
+0x7fe7eb2200,
+0x7fe9eb2200,
+0x7febe92000,
+0x7faba96000,
+0x7faba98000,
+0x7faba84000,
+0x7faa684000,
+0x7fea280000,
+0x7f9a280000,
+0x7f86280000,
+0x7f88280000,
+0x7e48280000,
+0x3668280000,
+0x3e48080000,
+0x4e48080000,
+0x0668080000,
+0x0618080000,
+0x0208180000,
+0x0208040000,
+0x00000c0000,
+0x0000100000]
 
-# import time
-# import busio
-# from adafruit_ssd1306 import SSD1306_I2C
-# import board
+o=0
+while True:
+    for b in B:
+        draw(o, b)
+        sleep(0.5)
+          
+        draw(b)
+        o=b
+        sleep(1)
 
-# # Create the I2C interface
-# i2c = busio.I2C(3, 2)  # (SCL, SDA)
-
-# # Create the OLED display
-# oled = SSD1306_I2C(128, 64, i2c)
-# oled.contrast(5)
-
-# def bounce_animation():
-#     x, y = 10, 10
-#     dx, dy = 2, 1  # Movement direction
-
-#     while True:
-#         oled.fill(0)  # Clear the display
-        
-#         # Draw a bouncing smiley face using basic shapes
-#         oled.circle(x, y, 10, 1)  # Head
-#         oled.rect(x - 3, y - 3, 2, 2, 1)  # Left eye
-#         oled.rect(x + 1, y - 3, 2, 2, 1)  # Right eye
-#         oled.line(x - 5, y + 2, x + 5, y + 2, 1)  # Mouth
-
-#         # Update the OLED display
-#         oled.show()
-        
-#         # Move the smiley
-#         x += dx
-#         y += dy
-
-#         # Bounce off walls
-#         if x <= 10 or x >= 118:
-#             dx *= -1
-#         if y <= 10 or y >= 54:
-#             dy *= -1
-        
-#         time.sleep(0.05)  # Animation speed
-
-# # Start the animation
-# bounce_animation()
-import time
-import busio
-from adafruit_ssd1306 import SSD1306_I2C
-import board
-
-# Create the I2C interface
-i2c = busio.I2C(3, 2)  # (SCL, SDA)
-
-# Create the OLED display
-oled = SSD1306_I2C(128, 64, i2c)
-oled.contrast(5)
-
-# New variable to control the size of the smiley
-size = 20  # Change this variable to control the size of the smiley
-
-def bounce_animation(size, speed_multiplier=1):
-    x, y = size, size
-    dx, dy = 2 * speed_multiplier, 1 * speed_multiplier  # Speed multiplied by a factor
-
-    while True:
-        oled.fill(0)  # Clear the display
-        
-        # Draw a bouncing smiley face using basic shapes
-        oled.circle(x, y, size, 1)  # Head (size depends on variable)
-        oled.rect(x - size//3, y - size//3, size//5, size//5, 1)  # Left eye
-        oled.rect(x + size//5, y - size//3, size//5, size//5, 1)  # Right eye
-        oled.line(x - size//2, y + size//5, x + size//2, y + size//5, 1)  # Mouth
-
-        # Update the OLED display
-        oled.show()
-        
-        # Move the smiley
-        x += dx
-        y += dy
-
-        # Bounce off walls, taking the size into account
-        if x <= size or x >= (128 - size):
-            dx *= -1
-        if y <= size or y >= (64 - size):
-            dy *= -1
-        
-        time.sleep(0.05)  # Animation speed
-
-# Start the animation with a size variable and a speed multiplier
-bounce_animation(size, speed_multiplier=5)  # Increasing speed by multiplying direction
+    sleep(4)
