@@ -73,11 +73,17 @@ def draw_frame(frame_data):
     
     oled.show()  # Actualiza la pantalla
 
-
+import frame1
+import frame2
 def play_animation(frames, delay=0.1):
-    for frame in frames:
-        draw_frame(frame)
-        time.sleep(delay)  # Controla la velocidad de la animación
+    # for frame in frames:
+    #     draw_frame(frame)
+    #     time.sleep(delay)  # Controla la velocidad de la animación
+    
+    draw_frame(frame1.frame)
+    time.sleep(3)
+    draw_frame(frame2.frame)
+    time.sleep(3)
 
 # Iniciar la animación
 play_animation(bird_animation.frames)
