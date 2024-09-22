@@ -72,6 +72,40 @@ def draw_frame(frame_data):
                 oled.pixel(x, y, 0)  # Píxel apagado
     
     oled.show()  # Actualiza la pantalla
+def duplicate_frame(frame_data, width=128, height=32):
+    expanded_frame = []
+    
+    # Iterar sobre cada fila de bytes (cada fila contiene width/8 bytes)
+    for row in range(height):
+        start = row * (width // 8)
+        end = start + (width // 8)
+        
+        # Obtener una fila completa del frame original
+        row_data = frame_data[start:end]
+        
+        # Duplicar la fila y añadirla dos veces al frame expandido
+        expanded_frame.extend(row_data)  # Primera vez
+        expanded_frame.extend(row_data)  # Segunda vez (duplicación)
+    
+    return expanded_frame
+
+# Convertir todos los frames de 128x32 a 128x64 duplicando las filas
+def expand_frames(frames):
+    expanded_frames = []
+    for frame in frames:
+        expanded_frames.append(duplicate_frame(frame))
+    return expanded_frames
+
+# Aquí deberías cargar el array `python_frames` de los datos originales
+# Assumimos que ya has convertido `python_frames` a partir del código Arduino
+
+
+# Guardar el resultado expandido en un archivo Python
+with open('expanded_bird_animation.py', 'w') as bi:
+    bi.write("expanded_frames = [\n")
+    for frame in expanded_python_frames:
+        bi.write(f"    {frame},\n")
+    bi.write("]\n")
 
 # import frame1
 # import frame2
@@ -84,6 +118,10 @@ def play_animation(frames, delay=0.1):
     # time.sleep(3)
     # draw_frame(frame2.frame)
     # time.sleep(3)
+    
+
+# Expandir los frames a 128x64
+expanded_python_frames = expand_frames(rocket_animation.frames)
 
 # Iniciar la animación
-play_animation(rocket_animation.frames)
+play_animation(expanded_python_frames)
