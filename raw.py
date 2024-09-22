@@ -56,22 +56,22 @@ def draw_frame_expanded(frame_data):
     oled.show()  # Actualiza la pantalla
 
 
-# def draw_frame(frame_data):
-    # oled.fill(0)  # Limpia la pantalla
+def draw_frame(frame_data):
+    oled.fill(0)  # Limpia la pantalla
     
-    # for byte_index, byte_value in enumerate(frame_data):
-    #     for bit in range(8):
-    #         # Calcula las coordenadas x e y
-    #         x = (byte_index % 16) * 8 + bit  # 16 bytes por fila (128 píxeles / 8 bits por byte)
-    #         y = byte_index // 16  # Cada fila tiene 16 bytes (128 píxeles / 8 bits)
+    for byte_index, byte_value in enumerate(frame_data):
+        for bit in range(8):
+            # Calcula las coordenadas x e y
+            x = (byte_index % 16) * 8 + bit  # 16 bytes por fila (128 píxeles / 8 bits por byte)
+            y = byte_index // 16  # Cada fila tiene 16 bytes (128 píxeles / 8 bits)
             
-    #         # Dibuja el píxel en función de si el bit está encendido o apagado
-    #         if byte_value & (1 << (7 - bit)):
-    #             oled.pixel(x, y, 1)  # Píxel encendido
-    #         else:
-    #             oled.pixel(x, y, 0)  # Píxel apagado
+            # Dibuja el píxel en función de si el bit está encendido o apagado
+            if byte_value & (1 << (7 - bit)):
+                oled.pixel(x, y, 1)  # Píxel encendido
+            else:
+                oled.pixel(x, y, 0)  # Píxel apagado
     
-    # oled.show()  # Actualiza la pantalla
+    oled.show()  # Actualiza la pantalla
 
 
 def play_animation(frames, delay=0.1):
