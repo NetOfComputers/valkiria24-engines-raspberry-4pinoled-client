@@ -37,7 +37,7 @@ def bounce_animation(size, speed_multiplier=1):
 
         # Update contrast based on the direction of movement
         if increasing:
-            contrast += 1  # Increase contrast
+            contrast += 20  # Increase contrast
             if contrast >= 255:  # Max contrast limit
                 contrast = 255
                 increasing = False
