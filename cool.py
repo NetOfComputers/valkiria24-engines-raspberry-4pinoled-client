@@ -7,14 +7,18 @@ import board
 # Create the I2C interface
 i2c = busio.I2C(3, 2)  # (SCL, SDA)
 
+CONTRAST = 5
+MAX_CONTRAST = 60
+
 # Create the OLED display
 oled = SSD1306_I2C(128, 64, i2c)
-oled.contrast(5)
+oled.contrast(CONTRAST)
 
 # New variable to control the size of the smiley
 size = 20  # Change this variable to control the size of the smiley
+maxBounceTimes = 20
 bounced = False
-bounceContrastTimes = 20
+bounceContrastTimes = maxBounceTimes
 def bounce_animation(size, speed_multiplier=1):
     x, y = size, size
     dx, dy = 2 * speed_multiplier, 1 * speed_multiplier  # Speed multiplied by a factor
@@ -38,12 +42,19 @@ def bounce_animation(size, speed_multiplier=1):
         # Bounce off walls, taking the size into account
         if x <= size or x >= (128 - size):
             bounced = True
+            oled.contrast(MAX_CONTRAST)
             dx *= -1
         if y <= size or y >= (64 - size):
             bounced = True
+            oled.contrast(MAX_CONTRAST)
             dy *= -1
         if(bounced):
-            bounceContrastTimes -
+            if bounceContrastTimes>0:
+                bounceContrastTimes -= 1
+            else:
+                bounceContrastTimes=maxBounceTimes
+                bounced=False
+                oled.contrast(CONTRAST)
         # time.sleep(0.001)  # Animation speed
 
 # Start the animation with a size variable and a speed multiplier
