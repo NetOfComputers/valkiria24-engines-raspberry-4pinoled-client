@@ -80,7 +80,7 @@ while True:
         oled.text(f'CPU Usage: {cpu_usage}%', 0, 20, 1)
         oled.text(f'Mem Usage: {mem_usage}%', 0, 30, 1)
         oled.text(f'Time Elapsed: {int(elapsed_time)}s', 0, 40, 1)
-        oled.text(f'Time Elapsed: {cpu_thermal}', 0, 50, 1)
+        oled.text(f'Cpu Temp: {cpu_thermal}', 0, 50, 1)
         
         # Update the OLED display
         oled.show()
