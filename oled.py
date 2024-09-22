@@ -26,7 +26,7 @@ oled.contrast(5)
 start_time = time.time()
 
 size=20
-speed_multiplier=2
+speed_multiplier=4
 x, y = size, size
 dx, dy = 2 * speed_multiplier, 1 * speed_multiplier  # Speed multiplied by a factor
 
