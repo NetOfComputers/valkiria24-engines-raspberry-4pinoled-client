@@ -56,7 +56,7 @@ def bounce_animation(size, speed_multiplier=1):
                 bounceContrastTimes=maxBounceTimes
                 bounced=False
                 oled.contrast(CONTRAST)
-        time.sleep(0.01)  # Animation speed
+        # time.sleep(0.01)  # Animation speed
 
 # Start the animation with a size variable and a speed multiplier
 bounce_animation(size, speed_multiplier=7)  # Increasing speed by multiplying direction
