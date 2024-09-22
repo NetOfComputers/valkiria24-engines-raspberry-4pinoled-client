@@ -21,17 +21,11 @@ def bounce_animation(size, speed_multiplier=1):
     while True:
         oled.fill(0)  # Clear the display
         
-        oled.circle(x, y, 10, 1)  # Body
-
-        # Draw the wings (lines)
-        oled.line(x - 10, y, x - 20, y - 5, 1)  # Left wing
-        oled.line(x - 10, y, x - 20, y + 5, 1)  # Left wing
-        oled.line(x + 10, y, x + 20, y - 5, 1)  # Right wing
-        oled.line(x + 10, y, x + 20, y + 5, 1)  # Right wing
-
-        # Draw the beak (triangle using lines)
-        oled.line(x + 10, y, x + 15, y, 1)  # Right side of beak
-        oled.line(x + 10, y, x + 10, y + 5, 1)  # Bottom of beak
+        # Draw a bouncing smiley face using basic shapes
+        oled.circle(x, y, size, 1)  # Head (size depends on variable)
+        oled.rect(x - size//3, y - size//3, size//5, size//5, 1)  # Left eye
+        oled.rect(x + size//5, y - size//3, size//5, size//5, 1)  # Right eye
+        oled.line(x - size//2, y + size//5, x + size//2, y + size//5, 1)  # Mouth
 
         # Update the OLED display
         oled.show()

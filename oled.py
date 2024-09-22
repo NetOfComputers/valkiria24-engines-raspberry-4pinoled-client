@@ -1,6 +1,6 @@
 import time
 import busio
-from < import SSD1306_I2C
+from adafruit_ssd1306 import SSD1306_I2C
 import board
 import socket
 import psutil  # Make sure to install psutil library
@@ -20,7 +20,7 @@ i2c = busio.I2C(3, 2)  # (SCL, SDA)
 
 # Create the OLED display
 oled = SSD1306_I2C(128, 64, i2c)
-oled.contrast(30)
+oled.contrast(5)
 
 # Record the start time
 start_time = time.time()
