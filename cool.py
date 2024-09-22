@@ -23,9 +23,9 @@ def bounce_animation(size, speed_multiplier=1):
         
         # Draw a bouncing smiley face using basic shapes
         oled.circle(x, y, size, 1)  # Head (size depends on variable)
-        oled.rect(x - size//3, y - size//3, size//5, size//5, 1)  # Left eye
-        oled.rect(x + size//5, y - size//3, size//5, size//5, 1)  # Right eye
-        oled.line(x - size//2, y + size//5, x + size//2, y + size//5, 1)  # Mouth
+        # oled.rect(x - size//3, y - size//3, size//5, size//5, 1)  # Left eye
+        # oled.rect(x + size//5, y - size//3, size//5, size//5, 1)  # Right eye
+        # oled.line(x - size//2, y + size//5, x + size//2, y + size//5, 1)  # Mouth
 
         # Update the OLED display
         oled.show()
