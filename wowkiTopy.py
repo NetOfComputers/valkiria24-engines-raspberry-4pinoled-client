@@ -19,15 +19,17 @@ def arduino_to_python_array(arduino_code):
 
     return python_arrays
 
+filename = 'rocket'
+
 # Leer el archivo de texto con el código Arduino
-with open('bird.arduino.txt', 'r') as f:
+with open(f'{filename}.arduino.txt', 'r') as f:
     arduino_code = f.read()
 
 # Convertir el código Arduino a un array de Python
 python_frames = arduino_to_python_array(arduino_code)
 
 # Imprimir el resultado en formato Python
-with open('bird_animation.py','w') as bi:
+with open(f'{filename}_animation.py','w') as bi:
     bi.write("frames = [")
     for frame in python_frames:
         bi.write(f"    {frame},")
