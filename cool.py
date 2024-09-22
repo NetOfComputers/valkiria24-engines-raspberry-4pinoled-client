@@ -18,7 +18,7 @@ def bounce_animation(size, speed_multiplier=1):
     dx, dy = 2 * speed_multiplier, 1 * speed_multiplier  # Speed multiplied by a factor
     original_contrast = 5  # Original contrast
     bounce_contrast = 200  # Higher contrast on bounce
-    bounce_duration = 0.1  # Duration for the bounce contrast effect
+    bounce_duration = 0.01  # Duration for the bounce contrast effect
 
     while True:
         oled.fill(0)  # Clear the display
