@@ -17,7 +17,7 @@ MAX_CONTRAST = 60
 oled = SSD1306_I2C(128, 64, i2c)
 oled.contrast(CONTRAST)
 
-
+oled.fill(1)
 def draw_frame(frame_data):
     """
     Draw a frame (64x32) on a 128x64 OLED screen by scaling it up 2x.
