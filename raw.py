@@ -60,7 +60,7 @@ def draw_frame(frame_data):
     oled.fill(0)  # Limpia la pantalla
     
     for byte_index, byte_value in enumerate(frame_data):
-        for bit in range(8):
+        for bit in range(16):
             # Calcula las coordenadas x e y
             x = (byte_index % 16) * 8 + bit  # 16 bytes por fila (128 píxeles / 8 bits por byte)
             y = byte_index // 16  # Cada fila tiene 16 bytes (128 píxeles / 8 bits)
