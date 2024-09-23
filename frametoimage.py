@@ -1,5 +1,6 @@
 from PIL import Image
-import rocket_animation
+import engine_animation
+
 def save_frame_as_image(frame_data, file_name="frame_image.bmp"):
     """
     Save a 64x32 frame (represented as a 512-byte array) as a 128x64 image file.
@@ -22,17 +23,14 @@ def save_frame_as_image(frame_data, file_name="frame_image.bmp"):
         for bit in range(8):
             pixel_on = (byte >> (7 - bit)) & 1  # Extract the bit for each pixel
             if pixel_on:
-                # Scale each pixel to a 2x2 block for 128x64
+                # Calculate the scaled pixel positions
                 for dx in range(scale_factor):
                     for dy in range(scale_factor):
-                        img.putpixel((x * scale_factor + dx, y * 8 * scale_factor + bit * scale_factor + dy), 1)
+                        img.putpixel((x * scale_factor + dx, y * scale_factor * 2 + bit * scale_factor + dy), 1)
 
     # Save the image to the specified file
     img.save(file_name)
     print(f"Frame saved as {file_name}")
 
-# Example frame data (512-byte array)
-frame_data = [0] * 512  # Replace with your actual frame data
-
-# Save the frame as a bitmap image
-save_frame_as_image(rocket_animation.frames[0], "frame_image.bmp")
+# Save the first frame as a bitmap image
+save_frame_as_image(engine_animation.frames[0], "frame_image.bmp")
