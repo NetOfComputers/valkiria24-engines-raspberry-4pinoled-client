@@ -108,4 +108,4 @@ def play_animation(frames, delay=0.1):
     # time.sleep(3)
 import expanded_rocket_animation
 # Iniciar la animación
-play_animation(expanded_rocket_animation)
+play_animation(expanded_rocket_animation.frames)
