@@ -100,7 +100,7 @@ expanded_python_frames = expand_frames(rocket_animation.frames)
 def play_animation(frames, delay=0.1):
     for frame in frames:
         draw_frame(frame)
-        time.sleep(delay)  # Controla la velocidad de la animación
+        time.sleep(delay)
     
     # draw_frame(frame1.frame)
     # time.sleep(3)
