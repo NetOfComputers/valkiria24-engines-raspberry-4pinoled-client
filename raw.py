@@ -4,7 +4,7 @@ from adafruit_ssd1306 import SSD1306_I2C
 import board
 # import bird_animation
 import rocket_animation
-
+import engine_animation
 
 
 # Create the I2C interface
@@ -94,7 +94,7 @@ def expand_frames(frames):
         expanded_frames.append(duplicate_frame(frame))
     return expanded_frames
 
-expanded_python_frames = expand_frames(rocket_animation.frames)
+expanded_python_frames = expand_frames(engine_animation.frames)
 # import frame1
 # import frame2
 def play_animation(frames, delay=0.1):
