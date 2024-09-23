@@ -18,7 +18,7 @@ oled = SSD1306_I2C(128, 64, i2c)
 oled.contrast(CONTRAST)
 
 
-def draw_frame(oled, frame_data):
+def draw_frame(frame_data):
     """
     Draw a frame (64x32) on a 128x64 OLED screen by scaling it up 2x.
     :param oled: The OLED display object (with a .pixel() method)
