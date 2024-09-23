@@ -24,4 +24,5 @@ def expand_frames(frames):
 expanded_python_frames = expand_frames(rocket_animation.frames)
 
 with open('expanded_rocket_animation.py','w') as era:
-    era.write('\n'.join(str(item) for item in expanded_python_frames))
+    era.write(f'[\n{'\n'.join(str(item) for item in expanded_python_frames)}\n]')
+
