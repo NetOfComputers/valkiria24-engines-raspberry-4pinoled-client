@@ -41,7 +41,8 @@ def draw_frame(frame_data):
                 oled.pixel(x + 1, y + bit * 2, 1)
                 oled.pixel(x, y + bit * 2 + 1, 1)
                 oled.pixel(x + 1, y + bit * 2 + 1, 1)
-                
+        
+    oled.show()  # Actualiza la pantalla            
 def play_animation(frames, delay=0.1):
     for frame in frames:
         draw_frame(frame)
