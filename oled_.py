@@ -30,10 +30,6 @@ start_time = time.time()
 disconnection_start = None  # To track when disconnection started
 disconnection_duration = 0  # To accumulate disconnection time
 
-# Variables for network speed calculation
-prev_bytes_sent = psutil.net_io_counters().bytes_sent  # Initial bytes sent
-prev_time = time.time()
-
 size = 20
 speed_multiplier = 4
 x, y = size, size
@@ -51,21 +47,6 @@ while True:
 
     # Get the current IP address
     ip_address = get_ip_address()
-
-    # Calculate network outgoing speed
-    current_bytes_sent = psutil.net_io_counters().bytes_sent
-    current_time = time.time()
-
-    # Calculate outgoing speed in MB/s
-    elapsed_time = current_time - prev_time
-    if elapsed_time > 0:
-        outgoing_speed_mbps = (current_bytes_sent - prev_bytes_sent) / (1024 * 1024) / elapsed_time
-    else:
-        outgoing_speed_mbps = 0.0
-
-    # Update tracking variables
-    prev_bytes_sent = current_bytes_sent
-    prev_time = current_time
 
     if 'No IP' in ip_address:
         # Track disconnection time
@@ -110,7 +91,7 @@ while True:
         disconnection_duration = 0
 
         # Calculate elapsed time
-        total_elapsed_time = time.time() - start_time
+        elapsed_time = time.time() - start_time
 
         # Prepare the display text
         oled.text('IP Address:', 0, 0, 1)
@@ -118,7 +99,7 @@ while True:
         oled.text(f'CPU Usage: {cpu_usage}%', 0, 20, 1)
         oled.text(f'Mem Usage: {mem_usage}%', 0, 30, 1)
         oled.text(f'Cpu Temp: {cpu_thermal}C', 0, 40, 1)
-        oled.text(f'Out: {outgoing_speed_mbps:.2f} MB/s', 0, 50, 1)
+        oled.text(f'Time Elapsed: {int(elapsed_time)}s', 0, 50, 1)
 
         # Update the OLED display
         oled.show()
